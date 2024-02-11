@@ -30,18 +30,6 @@ def simulate_decentralized_nodes_cpu():
         process.join()
 
 ### GPU ###
-def node_operation_gpu(node_id, data, result_queue):
-    # Simplify GPU assignment by allowing TensorFlow to manage GPU allocation
-    tf.config.experimental.set_memory_growth(tf.config.experimental.list_physical_devices('GPU')[0], True)
-    
-    # TensorFlow operations
-    with tf.device(f'/device:GPU:0'):  # Assume using the first GPU for all operations
-        tensor_data = tf.convert_to_tensor(data, dtype=tf.float32)
-        data_sum = tf.reduce_sum(tensor_data)
-        result = data_sum.numpy()
-    
-    result_queue.put((node_id, result))
-
 def initialize_tensorflow_gpu():
     gpus = tf.config.experimental.list_physical_devices('GPU')
     if gpus:
@@ -52,21 +40,45 @@ def initialize_tensorflow_gpu():
         except RuntimeError as e:
             print(e)
 
+def gpu_operation(data):
+    """
+    Perform the operation that requires GPU.
+    Ideally, this should be done in the main process or in a manner that doesn't conflict with TensorFlow's GPU management.
+    """
+    tensor_data = tf.convert_to_tensor(data, dtype=tf.float32)
+    data_sum = tf.reduce_sum(tensor_data)
+    return data_sum.numpy()
+
+def node_operation_gpu(node_id, data_queue, result_queue):
+    """
+    Main operation for each node that doesn't directly invoke TensorFlow.
+    It retrieves data, waits for GPU computation results, and performs any additional processing.
+    """
+    data = data_queue.get()  # Get data for this node
+    result = gpu_operation(data)  # Perform GPU operation in the main process or delegate appropriately
+    result_queue.put((node_id, result))  # Send results back
+
 def simulate_decentralized_nodes_gpu():
     initialize_tensorflow_gpu() # Initialize TensorFlow and GPU settings in the main process
     
-    processes = []
+    data_queue = Queue()
     result_queue = Queue()
-    mock_data = {node_id: np.random.rand(100).astype(np.float32) for node_id in range(num_nodes)}
+
+    mock_data = {node_id: np.random.rand(100, 1).astype(np.float32) for node_id in range(num_nodes)}
+    for _, data in mock_data.items():
+        data_queue.put(data)  # Pre-load data queue with data for each node
+
+    processes = [Process(target=node_operation_gpu, args=(node_id, data_queue, result_queue)) for node_id in range(num_nodes)]
     
-    for node_id, data in mock_data.items():
-        process = Process(target=node_operation_gpu, args=(node_id, data, result_queue))
-        processes.append(process)
+    # Start processes
+    for process in processes:
         process.start()
     
+    # Wait for all processes to complete
     for process in processes:
         process.join()
     
+    # Retrieve results
     while not result_queue.empty():
         node_id, result = result_queue.get()
         print(f"Node {node_id} processed data sum on GPU: {result}")
