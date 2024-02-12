@@ -5,7 +5,6 @@ from blockchain import Blockchain
 from node import Node
 import threading
 import tensorflow as tf
-import numpy as np
 
 # Suppress TensorFlow logging except for errors
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -16,14 +15,8 @@ num_nodes = 5
 # All processes will run cyclically
 run_period = 5 # seconds
 
-# Function to generate mock data for each node
-def generate_mock_data(num_nodes, data_size=100, features=10):
-    # Returns a dictionary with node_id as keys and randomly generated data as values
-    return {node_id: np.random.randn(data_size, features) for node_id in range(num_nodes)}
-
 def init_and_run_threads(blockchain, num_nodes):
     threads = []
-    data = generate_mock_data(num_nodes)
 
     # Check for GPU availability and configure TensorFlow to use GPU
     use_gpu = tf.config.list_physical_devices('GPU')
@@ -39,7 +32,7 @@ def init_and_run_threads(blockchain, num_nodes):
 
     # Create and start a thread for each node
     for node_id in range(num_nodes):
-        node = Node(node_id, blockchain, data[node_id], run_period) # Create a Node object
+        node = Node(node_id, blockchain, run_period) # Create a Node object
         thread = threading.Thread(target=node.run, args=(use_gpu,)) # Initialize thread for the node
         threads.append(thread) # Add thread to the list
         thread.start() # Start the thread
