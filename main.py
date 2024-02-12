@@ -72,6 +72,15 @@ def create_and_start_threads(blockchain):
 
     # Configure GPU usage based on availability
     use_gpu = tf.config.list_physical_devices('GPU')
+    
+    # Configure TensorFlow to use only specified GPU and limit memory
+    if use_gpu:
+        try:
+            tf.config.experimental.set_virtual_device_configuration(
+                use_gpu[0],
+                [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024*num_nodes)])
+        except RuntimeError as e:
+            print(e)
 
     # Create and start threads
     for node_id in range(num_nodes):
@@ -88,5 +97,7 @@ def create_and_start_threads(blockchain):
 if __name__ == "__main__":
     # Use a more meaningful format for the log file name
     logging.basicConfig(filename=f"node_activity_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log", level=logging.INFO)
+
     blockchain = Blockchain()
+
     create_and_start_threads(blockchain)
