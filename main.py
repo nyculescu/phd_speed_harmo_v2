@@ -25,7 +25,7 @@ def create_and_start_threads(blockchain, num_nodes):
     threads = []
     data = generate_mock_data(num_nodes)
 
-    # Configure GPU usage based on availability
+    # Check for GPU availability and configure TensorFlow to use GPU
     use_gpu = tf.config.list_physical_devices('GPU')
     
     # Configure TensorFlow to use only specified GPU and limit memory
@@ -37,19 +37,23 @@ def create_and_start_threads(blockchain, num_nodes):
         except RuntimeError as e:
             print(e)
 
-    # Create and start threads
+    # Create and start a thread for each node
     for node_id in range(num_nodes):
-        node = Node(node_id, blockchain, data[node_id], run_period)
-        thread = threading.Thread(target=node.run, args=(use_gpu,))
-        threads.append(thread)
-        thread.start()
+        node = Node(node_id, blockchain, data[node_id], run_period) # Create a Node object
+        thread = threading.Thread(target=node.run, args=(use_gpu,)) # Initialize thread for the node
+        threads.append(thread) # Add thread to the list
+        thread.start() # Start the thread
 
-    # Optionally wait for all threads to finish
+    # Wait for all threads to complete (optional)
     for thread in threads:
         thread.join()
 
 if __name__ == "__main__":
-    # Use a more meaningful format for the log file name
+    # Configure logging for the application. Use a more meaningful format for the log file name
     logging.basicConfig(filename=f"logs/node_activity_{time.strftime('%Y-%m-%d_%H-%M-%S')}.log", level=logging.INFO)
+    
+    # Initialize the blockchain object
     blockchain = Blockchain()
+
+    # Create and start threads for each node
     create_and_start_threads(blockchain, num_nodes)
