@@ -33,17 +33,17 @@ class Node:
             try:
                 data = tf.random.normal((1000, 1000))  # Example data
                 result = tf.reduce_mean(data).numpy()
-                self.logger.info(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - GPU result: {result}")
+                self.logger.info(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - GPU {self.node_id} result: {result}")
             except Exception as e:
-                self.logger.error(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - Error during GPU computation", exc_info=e)
+                self.logger.error(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - Error during GPU {self.node_id} computation", exc_info=e)
                 result = None  # Handle errors gracefully
         else:
             try:
                 data = np.random.randn(1000, 1000)
                 result = data.mean()
-                self.logger.info(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - CPU result: {result}")
+                self.logger.info(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - CPU {self.node_id} result: {result}")
             except Exception as e:
-                self.logger.error(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - Error during CPU computation", exc_info=e)
+                self.logger.error(f"{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())} - Error during CPU {self.node_id} computation", exc_info=e)
                 result = None  # Handle errors gracefully
 
         return result
