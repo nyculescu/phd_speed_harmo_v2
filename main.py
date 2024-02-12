@@ -5,6 +5,8 @@ from blockchain import Blockchain
 from node import Node
 import threading
 import tensorflow as tf
+from network_topology.network_topology import load_and_check_network_topology
+
 
 # Suppress TensorFlow logging except for errors
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -23,6 +25,8 @@ neighbors = {\
         1: [0, 2], \
              2: [0, 1]  \
                 }
+
+
 
 def init_and_run_threads(blockchain, num_nodes, neighbors):
     threads = []
@@ -50,26 +54,7 @@ def init_and_run_threads(blockchain, num_nodes, neighbors):
     for thread in threads:
         thread.join()
 
-def check_topology_consistency(neighbors):
-    """
-    Checks if the network topology is consistent.
-    For every pair of nodes (A, B), if A considers B a neighbor,
-    then B should also consider A a neighbor.
-    
-    Parameters:
-    - neighbors: A dictionary where keys are node IDs and values are lists of neighbor node IDs.
-    
-    Returns:
-    - consistency: True if the topology is consistent, False otherwise.
-    """
-    consistency = True
-    for node, node_neighbors in neighbors.items():
-        for neighbor in node_neighbors:
-            # Check if the current node is listed in its neighbor's list of neighbors
-            if node not in neighbors[neighbor]:
-                print(f"Inconsistency found: Node {neighbor} does not list Node {node} as a neighbor.")
-                consistency = False
-    return consistency
+
 
 if __name__ == "__main__":
     # Configure logging for the application. Use a more meaningful format for the log file name
@@ -78,6 +63,8 @@ if __name__ == "__main__":
     # Initialize the blockchain object
     blockchain = None # Blockchain() # Placeholder for the blockchain object
 
+    # Load and check the consistency of the network topology
+    neighbors = load_and_check_network_topology()
+    
     # Create and start threads for each node
-    if check_topology_consistency(neighbors):
-        init_and_run_threads(blockchain, num_nodes, neighbors)
+    init_and_run_threads(blockchain, num_nodes, neighbors)
