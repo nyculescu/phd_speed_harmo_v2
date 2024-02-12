@@ -17,17 +17,6 @@ num_nodes = 5
 # All processes will run cyclically
 run_period = 5 # seconds
 
-# Network topology
-# E.g., Node 0 is directly connected to Node 1 and Node 2. This means 
-# Node 0 can directly communicate with or send data to Nodes 1 and 2.
-neighbors = {\
-    0: [1, 2], \
-        1: [0, 2], \
-             2: [0, 1]  \
-                }
-
-
-
 def init_and_run_threads(blockchain, num_nodes, neighbors):
     threads = []
 
@@ -53,8 +42,6 @@ def init_and_run_threads(blockchain, num_nodes, neighbors):
     # Wait for all threads to complete (optional)
     for thread in threads:
         thread.join()
-
-
 
 if __name__ == "__main__":
     # Configure logging for the application. Use a more meaningful format for the log file name

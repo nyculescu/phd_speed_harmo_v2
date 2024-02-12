@@ -1,6 +1,26 @@
 import json
 import sys
 
+######################
+# Network Topology Representation
+# Key-Value Pairs: In the dictionary neighbors, each key-value pair represents a node 
+# and its directly connected neighbors within the network. 
+# The key is the unique identifier (ID) of a node, and the value is a list of IDs 
+# representing the neighbors of that node.
+#
+# Significance in Decentralized Systems
+# 1. Data Exchange: This topology dictates how data (such as model updates, gradients, or any other information) 
+#    is exchanged in the decentralized system. For instance, when performing decentralized SGD updates, Node 0 
+#    would share its updates with Nodes 1 and 2, and similarly, Nodes 1 and 2 would share their updates 
+#    with their respective neighbors.
+# 2. Decentralized Decision Making: The network topology influences the process of aggregating information from 
+#    various nodes to make decisions or update models in a decentralized manner. Each node only communicates with 
+#    its neighbors, ensuring that the system operates without a central authority.
+# 3. Scalability and Fault Tolerance: By defining which nodes are connected to which others, the system can be made 
+#    more scalable and fault-tolerant. If a node goes offline, the rest of the network can continue to function, 
+#    albeit with potentially reduced capacity or efficiency depending on the node's role in the network topology.
+######################
+
 # Function to load network topology from a JSON file
 def load_network_topology(file_path):
     with open(file_path, 'r') as f:
