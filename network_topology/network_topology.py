@@ -71,11 +71,12 @@ def load_and_check_network_topology():
 
     # Check the consistency of the network topology
     is_consistent, inconsistencies = check_topology_consistency(network_topology)
-    print(f"Topology is consistent: {is_consistent}")
-    if not is_consistent:
+    
+    if is_consistent:
+        print(f"Topology is consistent")
+        return network_topology
+    else:
         print("Inconsistencies found:")
         for inconsistency in inconsistencies:
             print(inconsistency)
         sys.exit()
-    else:
-        return network_topology
