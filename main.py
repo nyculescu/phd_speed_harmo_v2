@@ -21,7 +21,7 @@ def generate_mock_data(num_nodes, data_size=100, features=10):
     # Returns a dictionary with node_id as keys and randomly generated data as values
     return {node_id: np.random.randn(data_size, features) for node_id in range(num_nodes)}
 
-def create_and_start_threads(blockchain, num_nodes):
+def init_and_run_threads(blockchain, num_nodes):
     threads = []
     data = generate_mock_data(num_nodes)
 
@@ -56,4 +56,4 @@ if __name__ == "__main__":
     blockchain = Blockchain()
 
     # Create and start threads for each node
-    create_and_start_threads(blockchain, num_nodes)
+    init_and_run_threads(blockchain, num_nodes)
