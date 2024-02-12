@@ -5,10 +5,10 @@ import numpy as np
 
 # Node class representing each participant in the decentralized system
 class Node:
-    def __init__(self, node_id, run_period, blockchain, \
+    def __init__(self, node_id, run_period, tangle, \
                  neighbors, data_size=100, features=10):
         self.node_id = node_id # Unique identifier for the node
-        self.blockchain = blockchain # Reference to the shared blockchain object
+        self.tangle = tangle # Reference to the shared tangle object
         self.run_period = run_period
         self.neighbors = neighbors  # Neighbors of this node
 
@@ -39,7 +39,7 @@ class Node:
             aggregated_gradients = gradients
             for neighbor_id in self.neighbors:
                 # Realistically, fetch or compute the neighbor's specific gradients using neighbor_id.
-                # This could involve accessing a shared database, blockchain ledger, or direct network communication.
+                # This could involve accessing a shared database, tangle ledger, or direct network communication.
                 neighbor_gradients = gradients  # Placeholder for neighbor's gradients
                 aggregated_gradients += neighbor_gradients
             
@@ -52,8 +52,18 @@ class Node:
         # Update model parameters
         self.model.assign_sub(learning_rate * averaged_gradients)
         
-        return loss.numpy()
+        current_loss = loss.numpy()
 
+        # Record the loss to the tangle
+        # Dynamically choose transactions to approve
+        # Use network topology to select transactions for approval
+        approving_transactions = self.tangle.get_transactions_for_approval(self.node_id, self.neighbors)
+        
+        # Add transaction with dynamically chosen approving transactions considering network topology
+        message = {"loss": float(loss.numpy()), "message": "Normal Loss", "added_by": self.node_id}
+        self.tangle.add_transaction(message, approving_transactions)
+
+        return current_loss
 
     # Function to perform a single SGD update
     def decentralized_sgd_update_gpu_switch(self, use_gpu):
@@ -95,3 +105,7 @@ class Node:
             
             # Wait for a specified interval before the next update
             time.sleep(self.run_period)
+
+    def log_loss_action(self, current_loss):
+        # Custom action based on the smart contract's evaluation
+        pass
