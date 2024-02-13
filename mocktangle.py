@@ -1,104 +1,140 @@
 import json
 
-# tangle class representing a simplified tangle structure for the simulation
-# Each transaction directly approves two previous transactions. This helps eliminate the need 
-# for miners and achieves faster transaction confirmations as the network grows
-
 class SmartContract:
     def __init__(self, conditions, action):
         """
-        Initialize a smart contract with conditions and actions.
-        :param conditions: A function that evaluates to True or False, determining if the contract should be executed.
-        :param action: The action to be performed when the conditions are met.
+        Initializes a smart contract with specific conditions and an action to be executed.
+
+        Parameters:
+        - conditions: A callable that takes transaction data as input and returns True if the action should be executed.
+        - action: A callable that defines the action to be executed when conditions are met.
         """
         self.conditions = conditions
         self.action = action
 
     def evaluate_and_execute(self, transaction_data):
         """
-        Evaluate the conditions of the smart contract and execute the action if conditions are met.
-        :param transaction_data: Data associated with a transaction that might satisfy the contract's conditions.
+        Evaluates the transaction data against the contract's conditions and executes the action if conditions are met.
+
+        Parameters:
+        - transaction_data: The data associated with a transaction to be evaluated.
         """
         if self.conditions(transaction_data):
             self.action(transaction_data)
 
-# Mock Functions: 
-# - simulate adding transactions to the Tangle, 
-# - choosing transactions to approve, and
-# - ensuring data integrity and synchronization across the network.
 class MockTangle:
     def __init__(self, ledger_file_path):
+        """
+        Initializes the mock Tangle with a specified ledger file path.
+
+        Parameters:
+        - ledger_file_path: Path to the ledger file storing transactions.
+        """
         self.ledger_file_path = ledger_file_path
         self.transactions = self.load_ledger()
-        self.smart_contracts = []  # List to store smart contracts
+        self.smart_contracts = []  # List to hold deployed smart contracts
 
     def load_ledger(self):
-        """Load transactions from the JSON ledger file."""
+        """
+        Loads transactions from a ledger file, or initializes a new ledger if the file is not found.
+
+        Returns:
+        - A list of transactions loaded from the ledger.
+        """
         try:
             with open(self.ledger_file_path, 'r') as file:
                 ledger = json.load(file)
-            return ledger["transactions"]
+            return ledger.get("transactions", [])
         except FileNotFoundError:
             print(f"Ledger file {self.ledger_file_path} not found. Creating a new ledger.")
             return self.initialize_ledger()
 
     def initialize_ledger(self):
-        """Create an initial ledger structure with a genesis transaction if the ledger file does not exist."""
-        genesis_transaction = {
-            "hash": "genesis",
-            "approving_transactions": [],
-            "data": {"message": "Genesis transaction"}
-        }
-        # Save the genesis transaction to start the new ledger
+        """
+        Initializes a new ledger with a genesis transaction.
+
+        Returns:
+        - A list containing the genesis transaction.
+        """
+        genesis_transaction = {"hash": "genesis", "approving_transactions": [], "data": {"message": "Genesis transaction"}}
         self.save_ledger([genesis_transaction])
         return [genesis_transaction]
 
     def add_transaction(self, data, approving_transactions):
-        transaction_hash = "tx_" + str(len(self.transactions))
+        """
+        Adds a new transaction to the ledger and executes any applicable smart contracts.
+
+        Parameters:
+        - data: The data associated with the new transaction.
+        - approving_transactions: A list of transactions that this transaction approves.
+
+        Returns:
+        - The hash of the added transaction.
+        """
+        transaction_hash = f"tx_{len(self.transactions)}"
         new_transaction = {"hash": transaction_hash, "approving_transactions": approving_transactions, "data": data}
         self.transactions.append(new_transaction)
-        # Execute smart contracts with the new transaction data
         for contract in self.smart_contracts:
             contract.evaluate_and_execute(data)
         self.save_ledger()
         return transaction_hash
 
-    def save_ledger(self, transactions=None):
-        """Save the updated transactions back to the JSON ledger file."""
-        if transactions is None:
-            transactions = self.transactions
+    def save_ledger(self):
+        """
+        Saves the current state of transactions to the ledger file.
+        """
         with open(self.ledger_file_path, 'w') as file:
-            json.dump({"transactions": transactions}, file, indent=4)
+            json.dump({"transactions": self.transactions}, file, indent=4)
     
     def add_smart_contract(self, smart_contract):
+        """
+        Adds a smart contract to the list of contracts to be evaluated for each transaction.
+
+        Parameters:
+        - smart_contract: An instance of SmartContract to be added.
+        """
         self.smart_contracts.append(smart_contract)
 
     def get_recent_transactions(self):
-        """Fetch two most recent transactions for approval."""
-        if len(self.transactions) >= 2:
-            return [self.transactions[-1]["hash"], self.transactions[-2]["hash"]]
-        elif len(self.transactions) == 1:
-            # If only genesis exists, approve it twice
-            return ["genesis", "genesis"]
-        else:
-            # Fallback, should not happen if genesis is properly initialized
-            return []
-    
+        """
+        Retrieves hashes of the two most recent transactions for approval.
+
+        Returns:
+        - A list containing hashes of the two most recent transactions.
+        """
+        return [tx["hash"] for tx in self.transactions[-2:]]
+
     def get_last_loss(self, node_id):
-        """Retrieve the last loss value for a specific node from the transactions."""
+        """
+        Retrieves the last recorded loss for a specific node.
+
+        Parameters:
+        - node_id: The identifier of the node whose last loss is to be retrieved.
+
+        Returns:
+        - The last loss recorded for the node, or None if not found.
+        """
         for transaction in reversed(self.transactions):
             if transaction['data'].get('node_id') == node_id:
                 return transaction['data'].get('loss')
         return None
-        
+
     def get_transactions_for_approval(self, node_id, neighbors):
-        """Fetch transactions for approval considering the network topology."""
-        # Simplified logic: prioritize transactions added by neighbors, fallback to recent transactions
-        neighbor_transactions = [tx for tx in self.transactions if tx.get("added_by") in neighbors]
-        if len(neighbor_transactions) >= 2:
-            return [neighbor_transactions[-1]["hash"], neighbor_transactions[-2]["hash"]]
+        """
+        Selects transactions for a node to approve, prioritizing those added by neighbors.
+
+        Parameters:
+        - node_id: The identifier of the node making the approval.
+        - neighbors: A list of neighbor node IDs whose transactions should be prioritized.
+
+        Returns:
+        - A list of transaction hashes for the node to approve.
+        """
+        neighbor_transactions = [tx for tx in self.transactions if tx['data'].get("added_by") in neighbors]
+        if neighbor_transactions:
+            return [tx["hash"] for tx in neighbor_transactions[-2:]]
         else:
-            return self.get_recent_transactions()  # Fallback to recent transactions if not enough neighbor transactions
+            return self.get_recent_transactions()
 
 #######################################################
 # NOTE: Since smart contracts are deployed on the blockchain (or Tangle in this case) and are meant 
@@ -112,7 +148,7 @@ def create_loss_fluctuation_contract(tangle, initial_loss=None):
     last_loss = {'value': initial_loss}
 
     def loss_conditions(data):
-        """Check if the current loss is fluctuating within ±5% of the last loss."""
+        """Check if the current loss is fluctuating within 5% of the last loss."""
         current_loss = data.get("loss")
         # Check if last_loss['value'] is not None to ensure it has been set previously
         if last_loss['value'] is None or current_loss is None:

@@ -1087,6 +1087,606 @@
                 "message": "Normal Loss",
                 "added_by": 2
             }
+        },
+        {
+            "hash": "tx_91",
+            "approving_transactions": [
+                "tx_90",
+                "tx_89"
+            ],
+            "data": {
+                "loss": 27.669452667236328,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_92",
+            "approving_transactions": [
+                "tx_91",
+                "tx_90"
+            ],
+            "data": {
+                "loss": 56.133602142333984,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_93",
+            "approving_transactions": [
+                "tx_92",
+                "tx_91"
+            ],
+            "data": {
+                "loss": 27.944326400756836,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_94",
+            "approving_transactions": [
+                "tx_93",
+                "tx_92"
+            ],
+            "data": {
+                "loss": 19.843015670776367,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_95",
+            "approving_transactions": [
+                "tx_94",
+                "tx_93"
+            ],
+            "data": {
+                "loss": 16.733823776245117,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_96",
+            "approving_transactions": [
+                "tx_95",
+                "tx_94"
+            ],
+            "data": {
+                "loss": 53.26836395263672,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_97",
+            "approving_transactions": [
+                "tx_96",
+                "tx_95"
+            ],
+            "data": {
+                "loss": 26.513587951660156,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_98",
+            "approving_transactions": [
+                "tx_97",
+                "tx_96"
+            ],
+            "data": {
+                "loss": 26.978839874267578,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_99",
+            "approving_transactions": [
+                "tx_98",
+                "tx_97"
+            ],
+            "data": {
+                "loss": 18.93071746826172,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_100",
+            "approving_transactions": [
+                "tx_99",
+                "tx_98"
+            ],
+            "data": {
+                "loss": 15.935585021972656,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_101",
+            "approving_transactions": [
+                "tx_100",
+                "tx_99"
+            ],
+            "data": {
+                "loss": 26.04901123046875,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_102",
+            "approving_transactions": [
+                "tx_101",
+                "tx_100"
+            ],
+            "data": {
+                "loss": 25.407976150512695,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_103",
+            "approving_transactions": [
+                "tx_102",
+                "tx_101"
+            ],
+            "data": {
+                "loss": 50.560489654541016,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_104",
+            "approving_transactions": [
+                "tx_103",
+                "tx_102"
+            ],
+            "data": {
+                "loss": 18.062564849853516,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_105",
+            "approving_transactions": [
+                "tx_104",
+                "tx_103"
+            ],
+            "data": {
+                "loss": 15.178910255432129,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_106",
+            "approving_transactions": [
+                "tx_105",
+                "tx_104"
+            ],
+            "data": {
+                "loss": 24.350358963012695,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_107",
+            "approving_transactions": [
+                "tx_106",
+                "tx_105"
+            ],
+            "data": {
+                "loss": 25.153423309326172,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_108",
+            "approving_transactions": [
+                "tx_107",
+                "tx_106"
+            ],
+            "data": {
+                "loss": 48.000850677490234,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_109",
+            "approving_transactions": [
+                "tx_108",
+                "tx_107"
+            ],
+            "data": {
+                "loss": 17.236345291137695,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_110",
+            "approving_transactions": [
+                "tx_109",
+                "tx_108"
+            ],
+            "data": {
+                "loss": 14.461504936218262,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_111",
+            "approving_transactions": [
+                "tx_110",
+                "tx_109"
+            ],
+            "data": {
+                "loss": 23.33856964111328,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_112",
+            "approving_transactions": [
+                "tx_111",
+                "tx_110"
+            ],
+            "data": {
+                "loss": 24.29071617126465,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_113",
+            "approving_transactions": [
+                "tx_112",
+                "tx_111"
+            ],
+            "data": {
+                "loss": 45.580867767333984,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_114",
+            "approving_transactions": [
+                "tx_113",
+                "tx_112"
+            ],
+            "data": {
+                "loss": 16.4499568939209,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_115",
+            "approving_transactions": [
+                "tx_114",
+                "tx_113"
+            ],
+            "data": {
+                "loss": 13.781201362609863,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_116",
+            "approving_transactions": [
+                "tx_111",
+                "tx_115"
+            ],
+            "data": {
+                "loss": 10.414106369018555,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_117",
+            "approving_transactions": [
+                "tx_114",
+                "tx_116"
+            ],
+            "data": {
+                "loss": 14.561014175415039,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_118",
+            "approving_transactions": [
+                "tx_110",
+                "tx_115"
+            ],
+            "data": {
+                "loss": 6.031856060028076,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_119",
+            "approving_transactions": [
+                "tx_115",
+                "tx_117"
+            ],
+            "data": {
+                "loss": 11.797093391418457,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_120",
+            "approving_transactions": [
+                "tx_118",
+                "tx_119"
+            ],
+            "data": {
+                "loss": 13.199413299560547,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_121",
+            "approving_transactions": [
+                "tx_117",
+                "tx_120"
+            ],
+            "data": {
+                "loss": 9.965702056884766,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_122",
+            "approving_transactions": [
+                "tx_117",
+                "tx_120"
+            ],
+            "data": {
+                "loss": 11.311814308166504,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_123",
+            "approving_transactions": [
+                "tx_121",
+                "tx_122"
+            ],
+            "data": {
+                "loss": 12.603038787841797,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_124",
+            "approving_transactions": [
+                "tx_121",
+                "tx_122"
+            ],
+            "data": {
+                "loss": 13.981291770935059,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_125",
+            "approving_transactions": [
+                "tx_120",
+                "tx_123"
+            ],
+            "data": {
+                "loss": 5.771236419677734,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_126",
+            "approving_transactions": [
+                "tx_123",
+                "tx_124"
+            ],
+            "data": {
+                "loss": 9.539292335510254,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_127",
+            "approving_transactions": [
+                "tx_123",
+                "tx_124"
+            ],
+            "data": {
+                "loss": 10.84740924835205,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_128",
+            "approving_transactions": [
+                "tx_126",
+                "tx_127"
+            ],
+            "data": {
+                "loss": 12.034405708312988,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_129",
+            "approving_transactions": [
+                "tx_126",
+                "tx_127"
+            ],
+            "data": {
+                "loss": 13.42674446105957,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_130",
+            "approving_transactions": [
+                "tx_123",
+                "tx_128"
+            ],
+            "data": {
+                "loss": 5.522576332092285,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_131",
+            "approving_transactions": [
+                "tx_128",
+                "tx_129"
+            ],
+            "data": {
+                "loss": 9.133679389953613,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_132",
+            "approving_transactions": [
+                "tx_128",
+                "tx_129"
+            ],
+            "data": {
+                "loss": 10.402948379516602,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_133",
+            "approving_transactions": [
+                "tx_131",
+                "tx_132"
+            ],
+            "data": {
+                "loss": 11.49218463897705,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_134",
+            "approving_transactions": [
+                "tx_131",
+                "tx_132"
+            ],
+            "data": {
+                "loss": 12.896210670471191,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_135",
+            "approving_transactions": [
+                "tx_128",
+                "tx_133"
+            ],
+            "data": {
+                "loss": 5.285303115844727,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
+        },
+        {
+            "hash": "tx_136",
+            "approving_transactions": [
+                "tx_133",
+                "tx_134"
+            ],
+            "data": {
+                "loss": 8.7477388381958,
+                "message": "Normal Loss",
+                "added_by": 3
+            }
+        },
+        {
+            "hash": "tx_137",
+            "approving_transactions": [
+                "tx_133",
+                "tx_134"
+            ],
+            "data": {
+                "loss": 9.97753620147705,
+                "message": "Normal Loss",
+                "added_by": 0
+            }
+        },
+        {
+            "hash": "tx_138",
+            "approving_transactions": [
+                "tx_136",
+                "tx_137"
+            ],
+            "data": {
+                "loss": 10.975113868713379,
+                "message": "Normal Loss",
+                "added_by": 2
+            }
+        },
+        {
+            "hash": "tx_139",
+            "approving_transactions": [
+                "tx_136",
+                "tx_137"
+            ],
+            "data": {
+                "loss": 12.388579368591309,
+                "message": "Normal Loss",
+                "added_by": 1
+            }
+        },
+        {
+            "hash": "tx_140",
+            "approving_transactions": [
+                "tx_133",
+                "tx_138"
+            ],
+            "data": {
+                "loss": 5.058871269226074,
+                "message": "Normal Loss",
+                "added_by": 4
+            }
         }
     ]
 }
